@@ -69,4 +69,9 @@
 "title.conversation" = "会话";
 "title.setting" = "设置";
 
+//登录页新增
+"loginTiele" = "蕾丝客服";
+"loginUserNum" = "请输入客服账号";
+"loginPassword" = "请输入密码";
+"loginButtonEven" = "登录";
 

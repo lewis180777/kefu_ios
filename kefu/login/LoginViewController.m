@@ -93,6 +93,7 @@
             NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"LoginViewOneCell" owner:self options:nil];
             cell = [array objectAtIndex:0];
         }
+        cell.titleLabel.text = NSLocalizedString(@"loginTiele", @"蕾丝客服");
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         self.headCell = cell;
         return cell;
@@ -106,12 +107,14 @@
             cell = [array objectAtIndex:0];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.userNumberTextField.placeholder = NSLocalizedString(@"loginUserNum" , @"请输入客服账号");
+         cell.passwordTextField.placeholder = NSLocalizedString(@"loginPassword" , @"请输入密码");
         self.loginNumberTextField = cell.userNumberTextField;
         self.loginPasswordTextField = cell.passwordTextField;
         
         [cell.loginUserButton.layer setMasksToBounds:YES];
         [cell.loginUserButton.layer setCornerRadius:5.0];
+        [cell.loginUserButton setTitle:NSLocalizedString(@"loginButtonEven" , @"登录") forState:UIControlStateNormal];
         [cell.loginUserButton addTarget:self action:@selector(loginSubmitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;

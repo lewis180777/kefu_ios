@@ -29,9 +29,9 @@ PODS:
   - MBProgressHUD (0.9.2)
   - Objective-LevelDB (2.1.5):
     - leveldb-library (~> 1.18.2)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
   - Toast (2.4)
 
 DEPENDENCIES:
@@ -53,7 +53,7 @@ SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Objective-LevelDB: fa075efd9d0be645aee51847cc3ee70cdadb80ce
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
 
 COCOAPODS: 0.39.0

@@ -69,3 +69,9 @@
 //title
 "title.conversation" = "Conversations";
 "title.setting" = "setting";
+
+//登录页新增
+"loginTiele" = "Lace Customer Service";
+"loginUserNum" = "Please enter the account of the service";
+"loginPassword" = "Please enter the password";
+"loginButtonEven" = "Login";

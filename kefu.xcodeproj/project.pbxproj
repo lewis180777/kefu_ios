@@ -278,7 +278,7 @@
 				TargetAttributes = {
 					6D12EC601CB517650003A03B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = V88W3X24CM;
+						DevelopmentTeam = 9GDQ64NU38;
 					};
 				};
 			};
@@ -511,8 +511,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dian Li (ZPLSF6KNZ4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian Li (ZPLSF6KNZ4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -522,9 +522,8 @@
 				INFOPLIST_FILE = kefu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beetle.kefu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lace.kefu.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4cb85451-cf91-4b0e-86df-1bf199f2a5e6";
 			};
 			name = Debug;
 		};
@@ -534,8 +533,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fuzhou Paramecium Information Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fuzhou Paramecium Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -545,9 +544,8 @@
 				INFOPLIST_FILE = kefu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beetle.kefu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lace.kefu.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c85e68aa-0529-4178-8645-ccc32044f3da";
 			};
 			name = Release;
 		};
