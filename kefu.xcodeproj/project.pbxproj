@@ -520,9 +520,9 @@
 					MAS_SHORTHAND,
 				);
 				INFOPLIST_FILE = kefu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beetle.kefu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lace.kefu.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -543,11 +543,11 @@
 					MAS_SHORTHAND,
 				);
 				INFOPLIST_FILE = kefu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.beetle.kefu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lace.kefu.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8c7c8f93-1b2e-44e8-8bc1-7e0f90379012";
+				PROVISIONING_PROFILE = "b76bcaa0-614a-4cd0-8dbf-e239b1aa24fe";
 			};
 			name = Release;
 		};
