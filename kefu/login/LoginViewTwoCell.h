@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewTwoCell : UITableViewCell
+@interface LoginViewTwoCell : UITableViewCell<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;

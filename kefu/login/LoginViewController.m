@@ -93,6 +93,8 @@
             NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"LoginViewOneCell" owner:self options:nil];
             cell = [array objectAtIndex:0];
         }
+        cell.titleLabel.numberOfLines = 0;
+        cell.titleLabel.lineBreakMode = NSLineBreakByClipping;
         cell.titleLabel.text = NSLocalizedString(@"loginTiele", @"蕾丝客服");
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         self.headCell = cell;

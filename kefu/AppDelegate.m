@@ -20,7 +20,9 @@
 #import "Config.h"
 #import "Token.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UIAlertViewDelegate>{
+    NSString *downloadUrl;
+}
 
 @end
 
@@ -64,8 +66,110 @@
     }
     
     
+    [self GetAppStrore];
+    
 
     return YES;
+}
+
+
+-(void)GetAppStrore{
+    
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 耗时的操作
+        // 系统并发线程池
+        // ... 处理阻塞操作
+        NSString *newVersion= @"";
+       
+        //    NSString *releaseNotes = @"";
+        
+        
+        NSString *myURL = nil;
+        
+        myURL = @"http://itunes.apple.com/cn/lookup?id=1121843265";
+        
+
+        
+        
+        
+        NSURL *url = [NSURL URLWithString:myURL];
+        
+        
+        //通过url获取数据
+        NSString *jsonResponseString =   [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"通过appStore获取的数据是：%@",jsonResponseString);
+        
+        //解析json数据为数据字典
+        NSData *data = [jsonResponseString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        if(data == nil){
+            //        [self showSimpleAlertView:@"网络连接异常！"];
+        }else{
+            NSDictionary *loginAuthenticationResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            //[self dictionaryFromJsonFormatOriginalData:jsonResponseString];
+            
+            NSLog(@"通过appStore获取的版本号是：%@ ---- %@",loginAuthenticationResponse,newVersion);
+            //获取本地软件的版本号
+            NSString *localVersion = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+            
+            NSArray *appArray = loginAuthenticationResponse[@"results"];
+            
+            if ([appArray count] > 0) {
+                downloadUrl = [appArray[0] objectForKey:@"trackViewUrl"];
+                
+                newVersion =  [appArray[0] objectForKey:@"version"];
+                
+                localVersion = [localVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+                newVersion = [newVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+                
+                NSLog(@"url -- %@,version -- %@ ",downloadUrl,newVersion);
+                
+                if ([newVersion floatValue] > [localVersion floatValue])
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // 更新界面
+                        // 系统串行主线程池
+                        // ... 更新UI操作
+                        
+//                        UIAlertView *alerView = [UIAlertView bk_alertViewWithTitle:@"提示" message:@"AppStore有新版本更新"];
+//                        
+//                        [alerView bk_addButtonWithTitle:@"取消" handler:^{
+//                            
+//                            NSDLog(@"We hate you.");
+//                        }];
+//                        [alerView bk_addButtonWithTitle:@"马上下载" handler:^{
+//                            
+//                            NSDLog(@"Yay!");
+//                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downloadUrl]];
+//
+//                            
+//                        }];
+                        
+                        UIAlertView *alerView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"AppStore有新版本更新" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"马上下载", nil];
+                        
+                        [alerView show];
+                        
+
+                    });
+
+                }
+                
+            }
+        }
+
+    });
+    
+    
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"Yay!");
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downloadUrl]];
+
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

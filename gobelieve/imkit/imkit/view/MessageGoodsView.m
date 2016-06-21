@@ -42,7 +42,7 @@
         [self addSubview:self.titleLabel];
         
         self.contentLabel = [[UILabel alloc] init];
-        self.contentLabel.textAlignment = NSTextAlignmentCenter;
+        self.contentLabel.textAlignment = NSTextAlignmentLeft;
         self.contentLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.contentLabel.numberOfLines = 0;
         self.contentLabel.font = [UIFont systemFontOfSize:14];
