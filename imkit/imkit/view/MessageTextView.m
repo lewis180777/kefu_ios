@@ -126,6 +126,7 @@
     [super drawRect:frame];
     
     CGSize textSize = [BubbleView textSizeForText:self.text withFont:[BubbleView font]];
+    NSLog(@"text size:%@ %f %f", self.text, textSize.width, textSize.height);
     
     CGFloat textX;
     if (self.type == BubbleMessageTypeOutgoing) {
@@ -134,6 +135,21 @@
     } else {
         textX = (8 + 8);
     }
+    
+    CGSize translationSize;
+    CGFloat translationX = textX;
+    if (self.translation.length > 0) {
+        translationSize = [BubbleView textSizeForText:self.translation withFont:[BubbleView font]];
+        NSLog(@"translation text size:%@ %f %f", self.translation, translationSize.width, translationSize.height);
+        if (self.type == BubbleMessageTypeOutgoing) {
+            float x = floorf( self.frame.size.width - translationSize.width - kBubblePaddingHead - kBubblePaddingTail - 16);
+            translationX = (x + 7 + 8);
+        } else {
+            translationX = (8 + 8);
+        }
+    }
+    
+    textX = MIN(textX, translationX);
     
     CGRect textFrame = CGRectMake(textX,
                                   kPaddingTop + kMarginTop + 8,
@@ -146,8 +162,8 @@
         float y = textFrame.origin.y + textFrame.size.height + 8;
         float w = textFrame.size.width;
         
-        textSize = [BubbleView textSizeForText:self.translation withFont:[BubbleView font]];
-
+        textSize = translationSize;
+        
         w = MAX(w, textSize.width);
         CGPoint start = CGPointMake(textX, y);
         CGPoint end = CGPointMake(textX + w, y);

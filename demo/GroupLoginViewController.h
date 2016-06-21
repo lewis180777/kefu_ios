@@ -10,5 +10,9 @@
 
 @interface GroupLoginViewController : UIViewController<UINavigationControllerDelegate>
 
+/**
+ *  ls 分支
+ */
+
 @property(nonatomic) NSString *deviceToken;
 @end

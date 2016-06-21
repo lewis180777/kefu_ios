@@ -174,12 +174,22 @@
 
 -(void) setNormalNavigationButtons{
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
-                                                             style:UIBarButtonItemStyleDone
-                                                            target:self
-                                                            action:@selector(returnMainTableViewController)];
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
+//                                                             style:UIBarButtonItemStyleDone
+//                                                            target:self
+//                                                            action:@selector(returnMainTableViewController)];
+//    
+//    self.navigationItem.leftBarButtonItem = item;
     
-    self.navigationItem.leftBarButtonItem = item;
+    UIButton  * left  =  [ UIButton  buttonWithType : UIButtonTypeCustom ];
+    [ left  setFrame : CGRectMake ( 0 , 8.75 ,  40 ,  40 )];
+    [ left  setImage :[ UIImage  imageNamed : @"arrow-left" ]  forState : UIControlStateNormal ];
+    [ left  setImageEdgeInsets : UIEdgeInsetsMake ( 0 ,  -30 ,  0 ,  0 )];
+    [ left  addTarget : self  action : @selector ( returnMainTableViewController)  forControlEvents : UIControlEventTouchUpInside ];
+    
+    UIBarButtonItem  * leftBar  =  [[ UIBarButtonItem  alloc ] initWithCustomView : left ];
+    self . navigationItem . leftBarButtonItem  =  leftBar ;
+
 }
 
 - (void)returnMainTableViewController {
