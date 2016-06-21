@@ -31,14 +31,22 @@
     // Do any additional setup after loading the view.
     
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
-                                                             style:UIBarButtonItemStyleDone
-                                                            target:self
-                                                            action:@selector(returnMainTableViewController)];
-    
-    self.navigationItem.leftBarButtonItem = item;
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
+//                                                             style:UIBarButtonItemStyleDone
+//                                                            target:self
+//                                                            action:@selector(returnMainTableViewController)];
+//    
+//    self.navigationItem.leftBarButtonItem = item;
 
+    UIButton  * left  =  [ UIButton  buttonWithType : UIButtonTypeCustom ];
+    [ left  setFrame : CGRectMake ( 0 , 8.75 ,  40 ,  40 )];
+    [ left  setImage :[ UIImage  imageNamed : @"arrow-left" ]  forState : UIControlStateNormal ];
+    [ left  setImageEdgeInsets : UIEdgeInsetsMake ( 0 ,  -30 ,  0 ,  0 )];
+    [ left  addTarget : self  action : @selector ( returnMainTableViewController)  forControlEvents : UIControlEventTouchUpInside ];
     
+    UIBarButtonItem  * leftBar  =  [[ UIBarButtonItem  alloc ] initWithCustomView : left ];
+    self . navigationItem . leftBarButtonItem  =  leftBar ;
+
     
     if (self.peerName.length > 0) {
         self.navigationItem.title = self.peerName;
@@ -140,20 +148,52 @@
     [self checkMessageFailureFlag:self.messages count:count];
   
     if (self.goodsTitle.length && self.goodsImage.length > 0) {
-        NSDictionary *goods = @{@"title":self.goodsTitle,
-                                @"image":self.goodsImage,
-                                @"url":self.goodsURL ? self.goodsURL : @"",
-                                @"content":self.goodsDescription ? self.goodsDescription : @""};
+        ICustomerMessage *latest = nil;
+        int i = self.messages.count;
+        for (;i > 0; i--) {
+            ICustomerMessage *msg = [self.messages objectAtIndex:i-1];
+            if (msg.type == MESSAGE_GOODS) {
+                latest = msg;
+                break;
+            }
+        }
         
-        NSDictionary *dic = @{@"goods":goods};
-        NSString* raw = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:dic options:0 error:nil] encoding:NSUTF8StringEncoding];
+        //最近10分钟内询盘同一商品
+        int now = (int)time(NULL);
+        if (![latest.goodsContent.title isEqualToString:self.goodsTitle] ||
+            ![latest.goodsContent.imageURL isEqualToString:self.goodsImage] ||
+            (now - latest.timestamp) > 10*60) {
+            MessageGoodsContent *content = [[MessageGoodsContent alloc] initWithGoodsTitle:self.goodsTitle
+                                                                                   content:self.goodsDescription
+                                                                                       url:self.goodsURL
+                                                                                     image:self.goodsImage];
+            
+            ICustomerMessage *goodsMsg = [[ICustomerMessage alloc] init];
+            goodsMsg.customerID = self.currentUID;
+            goodsMsg.customerAppID = self.appID;
+            goodsMsg.storeID = self.storeID;
+            goodsMsg.sellerID = self.sellerID;
+            goodsMsg.rawContent = content.raw;
+            goodsMsg.timestamp = (int)time(NULL);
+            goodsMsg.isOutgoing = YES;
+            
+            [self saveMessage:goodsMsg];
+            
+            //send message
+            CustomerMessage *im = [[CustomerMessage alloc] init];
+            im.customerAppID = goodsMsg.customerAppID;
+            im.customerID = goodsMsg.customerID;
+            im.storeID = goodsMsg.storeID;
+            im.sellerID = goodsMsg.sellerID;
+            im.msgLocalID = goodsMsg.msgLocalID;
+            im.content = goodsMsg.rawContent;
+            
+            [[IMService instance] sendCustomerMessage:im];
+            
+            [self.messages addObject:goodsMsg];
+        }
+ 
         
-        IMessage *goodsMsg = [[IMessage alloc] init];
-        goodsMsg.sender = 0;
-        goodsMsg.rawContent = raw;
-        goodsMsg.timestamp = (int)time(NULL);
-        
-        [self.messages addObject:goodsMsg];
     }
     [self initTableViewData];
 }
@@ -252,6 +292,9 @@
     MessageAttachmentContent *att = [[MessageAttachmentContent alloc] initWithAttachment:msg.msgLocalID
                                                                               translation:translation];
     ICustomerMessage *attachment = [[ICustomerMessage alloc] init];
+    attachment.storeID = self.storeID;
+    attachment.customerID = self.currentUID;
+    attachment.customerAppID = self.appID;
     attachment.rawContent = att.raw;
     [self saveMessage:attachment];
 }
@@ -260,6 +303,9 @@
     //以附件的形式存储，以免第二次查询
     MessageAttachmentContent *att = [[MessageAttachmentContent alloc] initWithAttachment:msg.msgLocalID address:address];
     ICustomerMessage *attachment = [[ICustomerMessage alloc] init];
+    attachment.storeID = self.storeID;
+    attachment.customerID = self.currentUID;
+    attachment.customerAppID = self.appID;
     attachment.rawContent = att.raw;
     [self saveMessage:attachment];
 }
