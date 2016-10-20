@@ -816,6 +816,102 @@
     [self resignFirstResponder];
 }
 
+- (void)translateZH:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"zh"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translateEN:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"en"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translatePT:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"pt"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translateTK:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"tr"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translateELS:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"ru"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translateXBY:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"es"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translateALB:(id)sender {
+    if (self.selectedMessage.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+    [self translate:self.selectedMessage language:@"ar"];
+    
+    [self resignFirstResponder];
+}
+
+- (void)translate:(IMessage*)msg language:(NSString*)language {
+    NSLog(@"translate...");
+    MessageTextContent *content = self.selectedMessage.textContent;
+    
+    [IMHttpAPI translate:content.text to:language
+                 success:^(NSString *translation) {
+                     NSLog(@"translation:%@", translation);
+                     if (translation.length > 0) {
+                         [self saveMessageAttachment:msg translation:translation];
+                         msg.translation = translation;
+                         int pos = [self findMessage:msg.msgLocalID];
+                         if (pos == -1) {
+                             return;
+                         }
+                         NSArray *array = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:pos inSection:0]];
+                         [self.tableView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationAutomatic];
+                     }
+                 }
+                    fail:^{
+                        
+                    }];
+    
+    
+}
+
+
 - (void)translateText:(id)sender {
     if (self.selectedMessage.type != MESSAGE_TEXT) {
         return;
@@ -879,6 +975,32 @@
         title = NSLocalizedString(@"message.translate", @"translate a message");
         item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateText:)];
         [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translateEN", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateEN:)];
+        [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translatePT", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translatePT:)];
+        [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translateTK", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateTK:)];
+        [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translateELS", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateELS:)];
+        [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translateXBY", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateXBY:)];
+        [menuItems addObject:item];
+        
+        title = NSLocalizedString(@"message.translateALB", @"translate a message");
+        item = [[UIMenuItem alloc] initWithTitle:title action:@selector(translateALB:)];
+        [menuItems addObject:item];
+        
+
     }
     if (message.isFailure) {
         

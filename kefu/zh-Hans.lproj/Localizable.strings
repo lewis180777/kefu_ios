@@ -77,3 +77,11 @@
 "loginPassword" = "请输入密码";
 "loginButtonEven" = "登录";
 
+
+"message.translateZH" = "中文";
+"message.translateEN" = "英文";
+"message.translatePT" = "葡萄牙语";
+"message.translateTK" = "土耳其语";
+"message.translateELS" = "俄罗斯";
+"message.translateXBY" = "西班牙";
+"message.translateALB" = "阿拉伯";

@@ -77,3 +77,11 @@
 "loginUserNum" = "Please enter the account of the service";
 "loginPassword" = "Please enter the password";
 "loginButtonEven" = "Login";
+
+"message.translateZH" = "中文";
+"message.translateEN" = "English";
+"message.translatePT" = "português";
+"message.translateTK" = "Türk";
+"message.translateELS" = "русский";
+"message.translateXBY" = "español";
+"message.translateALB" = "العربية";
