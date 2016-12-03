@@ -17,6 +17,7 @@
 #import "AppDB.h"
 #import "Config.h"
 #import "Token.h"
+#import "IQKeyboardManager.h"
 
 #define kFirstCellOffset    20
 #define kSecondMax      60
@@ -41,6 +42,42 @@
 
 @implementation LoginViewController
 
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+   
+    
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[self navigationController] setNavigationBarHidden:NO];
+
+   
+    [[IQKeyboardManager sharedManager] isEnabled];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:YES];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    if([[[UIDevice currentDevice] systemVersion] doubleValue] >=
+       7.0){
+        self.tableVIewTop.constant = -kFirstCellOffset;
+    }
+}
+
+
+
 - (void)dealloc {
     NSLog(@"LoginViewControler dealloc");
 }
@@ -58,22 +95,7 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:YES];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
-    if([[[UIDevice currentDevice] systemVersion] doubleValue] >=
-       7.0){
-        self.tableVIewTop.constant = -kFirstCellOffset;
-    }
-}
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[self navigationController] setNavigationBarHidden:NO];
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
